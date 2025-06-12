@@ -99,10 +99,17 @@
         }
         
         // Find the right-hand sidebar
-        const rhsContainer = document.getElementById('rhs');
+        let rhsContainer = document.getElementById('rhs');
         if (!rhsContainer) {
-            console.log('Shopping Intent Detector: RHS container not found');
-            return;
+            // Check for previously created fallback container
+            rhsContainer = document.getElementById('shopping-rhs-container');
+            if (!rhsContainer) {
+                // Create fallback container if none exists
+                rhsContainer = document.createElement('div');
+                rhsContainer.id = 'shopping-rhs-container';
+                const parent = document.getElementById('rcnt') || document.body;
+                parent.appendChild(rhsContainer);
+            }
         }
         
         // Create info box element
@@ -166,7 +173,7 @@
         if (hasShoppingIntent(query)) {
             // Use MutationObserver to wait for RHS container if not immediately available
             const observer = new MutationObserver(function(mutations) {
-                const rhsContainer = document.getElementById('rhs');
+                const rhsContainer = document.getElementById('rhs') || document.getElementById('shopping-rhs-container');
                 if (rhsContainer) {
                     createShoppingInfoBox(query);
                     observer.disconnect();
@@ -203,6 +210,11 @@
             const existingBox = document.getElementById('shopping-intent-info-box');
             if (existingBox) {
                 existingBox.remove();
+            }
+
+            const backupContainer = document.getElementById('shopping-rhs-container');
+            if (backupContainer) {
+                backupContainer.remove();
             }
             
             // Re-initialize with new query

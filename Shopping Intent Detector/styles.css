@@ -164,8 +164,16 @@
 }
 
 /* Ensure proper spacing in Google's layout */
-#rhs .shopping-intent-box:first-child {
+#rhs .shopping-intent-box:first-child,
+#shopping-rhs-container .shopping-intent-box:first-child {
     margin-top: 0;
+}
+
+/* Fallback container styling */
+#shopping-rhs-container {
+    float: right;
+    margin-left: 16px;
+    max-width: 350px;
 }
 
 /* Handle different RHS layouts */
