@@ -1,0 +1,175 @@
+/* Shopping Intent Detector Styles */
+
+.shopping-intent-box {
+    background: #ffffff;
+    border: 1px solid #e8eaed;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 16px;
+    padding: 16px;
+    font-family: 'Google Sans', arial, sans-serif;
+    transition: all 0.2s ease-in-out;
+    max-width: 350px;
+    position: relative;
+    overflow: hidden;
+}
+
+.shopping-intent-box:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+    border-color: #4285f4;
+}
+
+.shopping-intent-box:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #4285f4, #34a853, #fbbc04, #ea4335);
+}
+
+.shopping-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-top: 4px;
+}
+
+.shopping-icon {
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+.shopping-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #202124;
+    line-height: 1.3;
+}
+
+.shopping-content {
+    color: #5f6368;
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 12px;
+}
+
+.shopping-content p {
+    margin: 0 0 8px 0;
+}
+
+.shopping-content p:last-of-type {
+    margin-bottom: 12px;
+}
+
+.shopping-content ul {
+    margin: 8px 0 0 0;
+    padding-left: 16px;
+}
+
+.shopping-content li {
+    margin-bottom: 4px;
+    color: #5f6368;
+}
+
+.shopping-content li:last-child {
+    margin-bottom: 0;
+}
+
+.shopping-content strong {
+    color: #202124;
+    font-weight: 500;
+}
+
+.shopping-footer {
+    border-top: 1px solid #f1f3f4;
+    padding-top: 8px;
+    margin-top: 12px;
+}
+
+.shopping-footer small {
+    color: #9aa0a6;
+    font-size: 12px;
+    font-style: italic;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .shopping-intent-box {
+        max-width: 100%;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .shopping-intent-box {
+        background: #202124;
+        border-color: #3c4043;
+        color: #e8eaed;
+    }
+    
+    .shopping-header h3 {
+        color: #e8eaed;
+    }
+    
+    .shopping-content {
+        color: #bdc1c6;
+    }
+    
+    .shopping-content strong {
+        color: #e8eaed;
+    }
+    
+    .shopping-content li {
+        color: #bdc1c6;
+    }
+    
+    .shopping-footer {
+        border-top-color: #3c4043;
+    }
+    
+    .shopping-footer small {
+        color: #9aa0a6;
+    }
+    
+    .shopping-intent-box:hover {
+        border-color: #8ab4f8;
+        box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* Animation for smooth insertion */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.shopping-intent-box {
+    animation: slideInRight 0.3s ease-out;
+}
+
+/* Focus styles for accessibility */
+.shopping-intent-box:focus-within {
+    outline: 2px solid #4285f4;
+    outline-offset: 2px;
+}
+
+/* Ensure proper spacing in Google's layout */
+#rhs .shopping-intent-box:first-child {
+    margin-top: 0;
+}
+
+/* Handle different RHS layouts */
+.shopping-intent-box {
+    width: 100%;
+    box-sizing: border-box;
+}
