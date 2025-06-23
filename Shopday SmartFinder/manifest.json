@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Shopday SmartFinder",
+  "version": "1.0",
+  "description": "Extracts structured data from search results and product pages.",
+  "permissions": ["scripting", "tabs", "activeTab"],
+  "host_permissions": [
+    "*://*.google.com/*",
+    "*://*.bing.com/*",
+    "*://*.amazon.com/*",
+    "*://*.walmart.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup/popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.google.com/search*",
+        "*://*.bing.com/search*",
+        "*://*.amazon.com/*",
+        "*://*.walmart.com/*"
+      ],
+      "js": ["content.js"]
+    }
+  ]
+}
