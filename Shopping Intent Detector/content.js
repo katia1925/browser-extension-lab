@@ -41,8 +41,8 @@
     ];
     
     /**
-     * Extract search query from URL parameters
-     */
+    * Extract search query from URL parameters
+    */
     function getSearchQuery() {
         const urlParams = new URLSearchParams(window.location.search);
         const query = urlParams.get('q');
@@ -50,48 +50,58 @@
     }
     
     /**
-     * Detect if query has shopping intent
-     */
+    * Detect if query has shopping intent
+    */
     function hasShoppingIntent(query) {
+        console.log('[ShoppingDetector] Evaluating query:', query);
+        
         if (!query || query.trim() === '') {
+            console.log('[ShoppingDetector] Query is empty or blank');
             return false;
         }
         
-        // Check for exclusion patterns first
-        for (const exclusion of EXCLUSION_KEYWORDS) {
-            if (query.includes(exclusion)) {
-                return false;
-            }
-        }
-        
-        // Check for shopping keywords
+        // Buscar intención de compra por palabra clave
+        let hasKeyword = false;
         for (const keyword of SHOPPING_KEYWORDS) {
             if (query.includes(keyword)) {
-                return true;
+                console.log('[ShoppingDetector] Found shopping keyword:', keyword);
+                hasKeyword = true;
+                break;
             }
         }
         
-        // Additional pattern matching for price queries
-        const pricePatterns = [
-            /\$\d+/,  // $100
-            /under \$?\d+/,  // under $100
-            /less than \$?\d+/,  // less than 100
-            /price of/,  // price of
-            /how much/   // how much
-        ];
-        
+        // Buscar intención de compra por patrones de precio
+        const pricePatterns = [/\$\d+/, /under \$?\d+/, /less than \$?\d+/, /price of/, /how much/];
         for (const pattern of pricePatterns) {
             if (pattern.test(query)) {
-                return true;
+                console.log('[ShoppingDetector] Matched price pattern:', pattern);
+                hasKeyword = true;
+                break;
             }
         }
         
-        return false;
+        if (!hasKeyword) {
+            console.log('[ShoppingDetector] No shopping intent keywords or patterns found.');
+            // Revisar si se trata de una consulta informativa pura
+            for (const exclusion of EXCLUSION_KEYWORDS) {
+                if (query.includes(exclusion)) {
+                    console.log('[ShoppingDetector] Informational query detected by exclusion:', exclusion);
+                    return false;
+                }
+            }
+            console.log('[ShoppingDetector] No exclusion hit, but still no keywords — return false');
+            return false;
+        }
+        
+        console.log('[ShoppingDetector] Detected as shopping intent ✅');
+        return true;
     }
     
+    
+    
     /**
-     * Create and insert shopping info box
-     */
+    * Create and insert shopping info box
+    */
     function createShoppingInfoBox(query) {
         // Check if info box already exists
         if (document.getElementById('shopping-intent-info-box')) {
@@ -159,8 +169,8 @@
     }
     
     /**
-     * Main execution function
-     */
+    * Main execution function
+    */
     function init() {
         // Wait for DOM to be ready
         if (document.readyState === 'loading') {
@@ -211,7 +221,7 @@
             if (existingBox) {
                 existingBox.remove();
             }
-
+            
             const backupContainer = document.getElementById('shopping-rhs-container');
             if (backupContainer) {
                 backupContainer.remove();
